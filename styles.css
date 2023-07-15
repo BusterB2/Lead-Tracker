@@ -1,0 +1,11 @@
+.save {
+    background-color: green;
+}
+
+#input {
+    display: block;
+}
+
+* {
+    margin: 5px;
+}
