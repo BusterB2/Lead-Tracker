@@ -10,7 +10,6 @@ function saveTab(event) {
     helper(input);
 }
 
-let counter = 0;
 function helper(input) {
 
     let value = sessionStorage.getItem("saved");
@@ -33,9 +32,12 @@ function deleteAll(event) {
 
 function renderer() {
     let parent = document.getElementById('output');
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
+    if(parent != null)
+        parent.remove();
+
+    parent = document.createElement('div');
+    document.body.appendChild(parent);
+    parent.setAttribute('id', 'output');
 
     let key = "saved";
     let arr = JSON.parse(sessionStorage.getItem(key));
