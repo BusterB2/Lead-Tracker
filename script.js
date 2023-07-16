@@ -35,16 +35,15 @@ function renderer() {
     if(parent != null)
         parent.remove();
 
-    parent = document.createElement('div');
+    parent = document.createElement('ul');
     document.body.appendChild(parent);
     parent.setAttribute('id', 'output');
 
     let key = "saved";
     let arr = JSON.parse(sessionStorage.getItem(key));
     for(let str of arr) {
-        let para = document.createElement('p');
-        let node = document.createTextNode(str);
-        para.appendChild(node);
+        let para = document.createElement('li');
+        para.textContent = str;
         parent.appendChild(para);
     }
 }
