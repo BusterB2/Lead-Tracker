@@ -1,7 +1,9 @@
 "use strict";
 
 function saveInput(event) {
-    let input = document.getElementById("input").value;
+    let ele = document.getElementById("input");
+    let input = ele.value;
+    ele.value = "";
     helper(input);
 }
 
