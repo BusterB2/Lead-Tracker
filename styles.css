@@ -9,3 +9,8 @@
 * {
     margin: 5px;
 }
+
+ul {
+    list-style-type: none;
+    margin-left: -30px;
+}

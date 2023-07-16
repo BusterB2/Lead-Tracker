@@ -11,7 +11,6 @@ function saveTab(event) {
 }
 
 function helper(input) {
-
     let value = sessionStorage.getItem("saved");
     if(value !== null) {
         value = JSON.parse(value);
@@ -43,7 +42,10 @@ function renderer() {
     let arr = JSON.parse(sessionStorage.getItem(key));
     for(let str of arr) {
         let para = document.createElement('li');
-        para.textContent = str;
+        let link = document.createElement('a');
+        link.href = str;
+        link.textContent = str;
+        para.appendChild(link);
         parent.appendChild(para);
     }
 }
