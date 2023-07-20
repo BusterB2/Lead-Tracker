@@ -1,0 +1,17 @@
+{
+    // Required
+    "manifest_version": 3,
+    "name": "Lead Tracker",
+    "version": "1.0.1",
+  
+    // Recommended
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "icon.png"
+    },
+    "description": "For users who want to track the URL links of interesting leads they come across while browsing",
+  
+    // Optional
+    "author": "Buster B"
+}  
+    
