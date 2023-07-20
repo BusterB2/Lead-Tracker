@@ -1,55 +1,60 @@
 "use strict";
 
-function saveInput(event) {
+// global variables
+let outputIdName = 'output';
+let key = 'saved';
+
+function firstLoad() {
+    // create the outer block and name it - output
+    let parent = document.createElement('ul');
+    document.body.append(parent);
+    parent.setAttribute('id', outputIdName);
+
+    // if none, insert empty array
+    // else, render them
+    let arr = JSON.parse(localStorage.getItem(key));
+    if(arr == null)
+        localStorage.setItem(key, JSON.stringify([]));
+    else {
+        for(let str of arr) {
+            renderNewEle(parent, str);
+        }
+    }
+}
+
+function renderNewEle(parent, str) {
+    parent.insertAdjacentHTML('beforeend', 
+    `<li>
+        <a href='${str}'>
+            ${str}
+        </a>
+    </li>`);
+}
+
+document.getElementById("saveInput").addEventListener('click', function() {
     let ele = document.getElementById("input");
+
+    // Getting input and clearing textbox
     let input = ele.value;
     ele.value = "";
-    helper(input);
-}
 
-function saveTab(event) {
-    let input = location.href;
-    helper(input);
-}
+    // Storing input
+    let arr = JSON.parse(localStorage.getItem(key));
+    arr.push(input);
+    localStorage.setItem(key, JSON.stringify(arr)); //is there no faster way to do this than setting it in full again? performance improvement
 
-function helper(input) {
-    let value = sessionStorage.getItem("saved");
-    if(value !== null) {
-        value = JSON.parse(value);
-        value.push(input);
-        sessionStorage.setItem('saved', JSON.stringify(value));
-    }
-    else {
-        sessionStorage.setItem('saved', JSON.stringify([input]));
-    }
+    // Rendering the new ele
+    let parent = document.getElementById(outputIdName);
+    renderNewEle(parent, input);
+});
 
-    renderer();
-}
+document.getElementById("deleteAll").addEventListener('click', function() {
+    // make the array empty
+    localStorage.setItem(key, JSON.stringify([]));
 
-function deleteAll(event) {
-    sessionStorage.clear();
-    renderer();
-}
+    // remove all children
+    let parent = document.getElementById(outputIdName);
+    parent.innerHTML = "";
+})
 
-function renderer() {
-    let parent = document.getElementById('output');
-    if(parent != null)
-        parent.remove();
-
-    parent = document.createElement('ul');
-    document.body.appendChild(parent);
-    parent.setAttribute('id', 'output');
-
-    let key = "saved";
-    let arr = JSON.parse(sessionStorage.getItem(key));
-    for(let str of arr) {
-        let para = document.createElement('li');
-        let link = document.createElement('a');
-        link.href = str;
-        link.textContent = str;
-        para.appendChild(link);
-        parent.appendChild(para);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {renderer();});
+document.addEventListener('DOMContentLoaded', firstLoad);
