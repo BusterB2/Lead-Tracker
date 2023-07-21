@@ -38,6 +38,16 @@ document.getElementById("saveInput").addEventListener('click', function() {
     let input = ele.value;
     ele.value = "";
 
+    addURL(input);
+});
+
+document.getElementById("saveTab").addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        addURL(tabs[0].url);
+    })
+})
+
+function addURL(input) {
     // Storing input
     let arr = JSON.parse(localStorage.getItem(key));
     arr.push(input);
@@ -46,7 +56,7 @@ document.getElementById("saveInput").addEventListener('click', function() {
     // Rendering the new ele
     let parent = document.getElementById(outputIdName);
     renderNewEle(parent, input);
-});
+}
 
 document.getElementById("deleteAll").addEventListener('click', function() {
     // make the array empty

@@ -9,6 +9,9 @@
         "default_popup": "index.html",
         "default_icon": "icon.png"
     },
+    "permissions": [
+        "tabs"
+    ],
     "description": "For users who want to track the URL links of interesting leads they come across while browsing",
   
     // Optional
